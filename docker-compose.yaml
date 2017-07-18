@@ -28,7 +28,7 @@ services:
     extends: mraa-base
     image: mraa-android
     build:
-      dockerfile: docker/Dockerfile.android
+      dockerfile: mraa/Dockerfile.android
 
   mraa-node4:
     extends: mraa-base
@@ -39,14 +39,14 @@ services:
          - NODE_VERSION=v4.4.7
 
   mraa-node5:
-    extends: mraa-base
+    extends: mraa-node4
     image: mraa-node5
     build:
       args:
         - NODE_VERSION=v5.12.0
 
   mraa-node6:
-    extends: mraa-base
+    extends: mraa-node4
     image: mraa-node6
     build:
       args:
@@ -56,6 +56,6 @@ services:
     extends: mraa-base
     image: mraa-all
     build:
-      dockerfile: docker/Dockerfile.all
+      dockerfile: mraa/Dockerfile.all
       args:
         - NODE_VERSION=v5.12.0
