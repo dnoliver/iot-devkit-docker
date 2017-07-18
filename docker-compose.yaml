@@ -1,0 +1,61 @@
+version: '2.1'
+
+services:
+
+  mraa-base:
+    image: mraa-base
+    build:
+      context: .
+      dockerfile: mraa/Dockerfile.base
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+
+  mraa-python:
+    extends: mraa-base
+    image: mraa-python
+    build:
+      dockerfile: mraa/Dockerfile.python
+
+  mraa-java:
+    extends: mraa-base
+    image: mraa-java
+    build:
+      dockerfile: mraa/Dockerfile.java
+
+  mraa-android:
+    extends: mraa-base
+    image: mraa-android
+    build:
+      dockerfile: docker/Dockerfile.android
+
+  mraa-node4:
+    extends: mraa-base
+    image: mraa-node4
+    build:
+      dockerfile: docker/Dockerfile.node
+      args:
+         - NODE_VERSION=v4.4.7
+
+  mraa-node5:
+    extends: mraa-base
+    image: mraa-node5
+    build:
+      args:
+        - NODE_VERSION=v5.12.0
+
+  mraa-node6:
+    extends: mraa-base
+    image: mraa-node6
+    build:
+      args:
+        - NODE_VERSION=v6.11.0
+
+  mraa-all:
+    extends: mraa-base
+    image: mraa-all
+    build:
+      dockerfile: docker/Dockerfile.all
+      args:
+        - NODE_VERSION=v5.12.0

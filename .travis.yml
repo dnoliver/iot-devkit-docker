@@ -1,0 +1,29 @@
+dist: trusty
+sudo: required
+
+language: cpp
+
+env:
+  - TARGET=mraa-base
+  - TARGET=mraa-python
+  - TARGET=mraa-java
+  - TARGET=mraa-android
+  - TARGET=mraa-node4
+  - TARGET=mraa-node5
+  - TARGET=mraa-node6
+  - TARGET=mraa-all
+
+services:
+  - docker
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+before_script:
+  - if [ "$TARGET" != "mraa-base" ]; then docker-compose build mraa-base; fi
+
+script:
+  - docker-compose run ${TARGET}
