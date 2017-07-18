@@ -34,7 +34,7 @@ services:
     extends: mraa-base
     image: mraa-node4
     build:
-      dockerfile: docker/Dockerfile.node
+      dockerfile: mraa/Dockerfile.node
       args:
          - NODE_VERSION=v4.4.7
 
