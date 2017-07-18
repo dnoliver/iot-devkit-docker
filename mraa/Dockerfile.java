@@ -1,4 +1,4 @@
-FROM mraa-base
+FROM dnoliver/mraa-base
 
 # Update apt-get
 RUN apt-get -y update && \
