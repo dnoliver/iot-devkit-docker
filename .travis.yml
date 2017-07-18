@@ -24,4 +24,4 @@ before_script:
   - if [ "$TARGET" != "mraa-base" ]; then docker-compose build mraa-base; fi
 
 script:
-  - docker-compose run ${TARGET}
+  - docker-compose build ${TARGET}
