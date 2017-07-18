@@ -38,3 +38,8 @@ if [[ $DOCKER_REPO == *"mraa-node6"* ]]; then
   echo "Building mraa-node6"
   docker build --file Dockerfile.node --build-arg NODE_VERSION=v6.11.0 --tag $IMAGE_NAME .
 fi
+
+if [[ $DOCKER_REPO == *"mraa-all"* ]]; then
+  echo "Building mraa-all"
+  docker build --file Dockerfile.all --build-arg NODE_VERSION=v6.11.0 --tag $IMAGE_NAME .
+fi
