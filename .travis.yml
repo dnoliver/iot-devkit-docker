@@ -18,45 +18,22 @@ jobs:
         - docker-compose build ${TARGET}
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
         - docker push ${DOCKER_USERNAME}/${TARGET}
-    - stage: Build all images
+    - &build-docker-image
+      stage: Build all images
       env: TARGET=mraa-python
       script:
         - docker-compose build ${TARGET}
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
         - docker push ${DOCKER_USERNAME}/${TARGET}
-    - stage: Build all images
+    - <<: *build-docker-image
       env: TARGET=mraa-java
-      script:
-        - docker-compose build ${TARGET}
-        - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-        - docker push ${DOCKER_USERNAME}/${TARGET}
-    - stage: Build all images
+    - <<: *build-docker-image
       env: TARGET=mraa-android
-      script:
-        - docker-compose build ${TARGET}
-        - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-        - docker push ${DOCKER_USERNAME}/${TARGET}
-    - stage: Build all images
+    - <<: *build-docker-image
       env: TARGET=mraa-node4
-      script:
-        - docker-compose build ${TARGET}
-        - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-        - docker push ${DOCKER_USERNAME}/${TARGET}
-    - stage: Build all images
+    - <<: *build-docker-image
       env: TARGET=mraa-node5
-      script:
-        - docker-compose build ${TARGET}
-        - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-        - docker push ${DOCKER_USERNAME}/${TARGET}
-    - stage: Build all images
+    - <<: *build-docker-image
       env: TARGET=mraa-node6
-      script:
-        - docker-compose build ${TARGET}
-        - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-        - docker push ${DOCKER_USERNAME}/${TARGET}
-    - stage: Build all images
+    - <<: *build-docker-image
       env: TARGET=mraa-all
-      script:
-        - docker-compose build ${TARGET}
-        - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-        - docker push ${DOCKER_USERNAME}/${TARGET}
