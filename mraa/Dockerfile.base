@@ -10,7 +10,7 @@ RUN apt-get -y update && \
     apt-get -y --no-install-recommends install software-properties-common && \
     # Main Build Dependencies
     apt-get -y --no-install-recommends install \
-    build-essential cmake clang-3.8 g++-4.8 python \
+    build-essential cmake clang-3.8 gcc-4.8 g++-4.8 gcc-5 g++-5 python \
     # Additional Tools
     git wget ca-certificates libpcre3 libpcre3-dev unzip \
     # Docs Build Dependencies
