@@ -24,32 +24,38 @@ jobs:
         - docker-compose build ${TARGET}
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
         - docker push ${DOCKER_USERNAME}/${TARGET}
-    - env: TARGET=mraa-java
+    - stage: Build all images
+      env: TARGET=mraa-java
       script:
         - docker-compose build ${TARGET}
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
         - docker push ${DOCKER_USERNAME}/${TARGET}
-    - env: TARGET=mraa-android
+    - stage: Build all images
+      env: TARGET=mraa-android
       script:
         - docker-compose build ${TARGET}
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
         - docker push ${DOCKER_USERNAME}/${TARGET}
-    - env: TARGET=mraa-node4
+    - stage: Build all images
+      env: TARGET=mraa-node4
       script:
         - docker-compose build ${TARGET}
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
         - docker push ${DOCKER_USERNAME}/${TARGET}
-    - env: TARGET=mraa-node5
+    - stage: Build all images
+      env: TARGET=mraa-node5
       script:
         - docker-compose build ${TARGET}
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
         - docker push ${DOCKER_USERNAME}/${TARGET}
-    - env: TARGET=mraa-node6
+    - stage: Build all images
+      env: TARGET=mraa-node6
       script:
         - docker-compose build ${TARGET}
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
         - docker push ${DOCKER_USERNAME}/${TARGET}
-    - env: TARGET=mraa-all
+    - stage: Build all images
+      env: TARGET=mraa-all
       script:
         - docker-compose build ${TARGET}
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
