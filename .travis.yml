@@ -1,16 +1,6 @@
 dist: trusty
 sudo: required
 
-env:
-  - TARGET=mraa-base
-  - TARGET=mraa-python
-  - TARGET=mraa-java
-  - TARGET=mraa-android
-  - TARGET=mraa-node4
-  - TARGET=mraa-node5
-  - TARGET=mraa-node6
-  - TARGET=mraa-all
-
 services:
   - docker
 
@@ -20,10 +10,25 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-before_script:
-  - if [ "${TARGET}" != "mraa-base" ]; then docker-compose build mraa-base; fi
-
-script:
-  - docker-compose build ${TARGET}
-  - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
-  - docker push ${DOCKER_USERNAME}/${TARGET}
+jobs:
+  include:
+    - stage: Build base image
+      env: TARGET=mraa-base
+      script:
+        - docker-compose build ${TARGET}
+        - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+        - docker push ${DOCKER_USERNAME}/${TARGET}
+    - stage: Build all images
+      env:
+        - TARGET=mraa-base
+        - TARGET=mraa-python
+        - TARGET=mraa-java
+        - TARGET=mraa-android
+        - TARGET=mraa-node4
+        - TARGET=mraa-node5
+        - TARGET=mraa-node6
+        - TARGET=mraa-all
+      script:
+        - docker-compose build ${TARGET}
+        - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+        - docker push ${DOCKER_USERNAME}/${TARGET}
