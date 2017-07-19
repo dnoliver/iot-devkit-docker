@@ -59,3 +59,61 @@ services:
       dockerfile: mraa/Dockerfile.all
       args:
         - NODE_VERSION=v5.12.0
+
+  upm-base:
+    image: dnoliver/upm-base
+    build:
+      context: .
+      dockerfile: upm/Dockerfile.base
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+
+  upm-python:
+    extends: upm-base
+    image: dnoliver/upm-python
+    build:
+      dockerfile: upm/Dockerfile.python
+
+  upm-java:
+    extends: upm-base
+    image: dnoliver/upm-java
+    build:
+      dockerfile: upm/Dockerfile.java
+
+  upm-android:
+    extends: upm-base
+    image: dnoliver/upm-android
+    build:
+      dockerfile: upm/Dockerfile.android
+
+  upm-node4:
+    extends: upm-base
+    image: dnoliver/upm-node4
+    build:
+      dockerfile: upm/Dockerfile.node
+      args:
+         - NODE_VERSION=v4.4.7
+
+  upm-node5:
+    extends: upm-node4
+    image: dnoliver/upm-node5
+    build:
+      args:
+        - NODE_VERSION=v5.12.0
+
+  upm-node6:
+    extends: upm-node4
+    image: dnoliver/upm-node6
+    build:
+      args:
+        - NODE_VERSION=v6.11.0
+
+  upm-all:
+    extends: upm-base
+    image: dnoliver/upm-all
+    build:
+      dockerfile: upm/Dockerfile.all
+      args:
+        - NODE_VERSION=v5.12.0

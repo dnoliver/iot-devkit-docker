@@ -18,6 +18,12 @@ jobs:
         - docker-compose build ${TARGET}
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
         - docker push ${DOCKER_USERNAME}/${TARGET}
+    - stage: Build base image
+      env: TARGET=upm-base
+      script:
+        - docker-compose build ${TARGET}
+        - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+        - docker push ${DOCKER_USERNAME}/${TARGET}
     - &build-docker-image
       stage: Build all images
       env: TARGET=mraa-python
@@ -37,3 +43,17 @@ jobs:
       env: TARGET=mraa-node6
     - <<: *build-docker-image
       env: TARGET=mraa-all
+    - <<: *build-docker-image
+      env: TARGET=upm-python
+    - <<: *build-docker-image
+      env: TARGET=upm-java
+    - <<: *build-docker-image
+      env: TARGET=upm-android
+    - <<: *build-docker-image
+      env: TARGET=upm-node4
+    - <<: *build-docker-image
+      env: TARGET=upm-node5
+    - <<: *build-docker-image
+      env: TARGET=upm-node6
+    - <<: *build-docker-image
+      env: TARGET=upm-all
