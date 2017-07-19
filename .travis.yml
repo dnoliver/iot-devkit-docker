@@ -21,7 +21,9 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 before_script:
-  - if [ "$TARGET" != "mraa-base" ]; then docker-compose build mraa-base; fi
+  - if [ "${TARGET}" != "mraa-base" ]; then docker-compose build mraa-base; fi
 
 script:
   - docker-compose build ${TARGET}
+  - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+  - docker push ${DOCKER_USERNAME}/${TARGET}
