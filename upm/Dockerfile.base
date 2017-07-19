@@ -23,7 +23,7 @@ RUN add-apt-repository ppa:mraa/mraa && \
     # Update apt-get
     apt-get -y update && \
     # Mraa Build Dependencies
-    apt-get -y --no-install-recommends libmraa1 libmraa-dev mraa-tools
+    apt-get -y --no-install-recommends install libmraa1 libmraa-dev mraa-tools
 
 # Test Build Dependencies
 RUN apt-get -y --no-install-recommends install \
