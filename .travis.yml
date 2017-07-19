@@ -10,15 +10,6 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-env:
-  - TARGET=mraa-python
-  - TARGET=mraa-java
-  - TARGET=mraa-android
-  - TARGET=mraa-node4
-  - TARGET=mraa-node5
-  - TARGET=mraa-node6
-  - TARGET=mraa-all
-
 jobs:
   include:
     - stage: Build base image
@@ -28,6 +19,13 @@ jobs:
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
         - docker push ${DOCKER_USERNAME}/${TARGET}
     - stage: Build all images
+      env: TARGET=mraa-python
+      env: TARGET=mraa-java
+      env: TARGET=mraa-android
+      env: TARGET=mraa-node4
+      env: TARGET=mraa-node5
+      env: TARGET=mraa-node6
+      env: TARGET=mraa-all
       script:
         - docker-compose build ${TARGET}
         - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
