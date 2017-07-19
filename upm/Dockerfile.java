@@ -1,4 +1,4 @@
-FROM upm-base
+FROM dnoliver/upm-base
 
 # Update apt-get
 RUN apt-get -y update && \
