@@ -11,6 +11,10 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
+    environment:
+      - http_proxy
+      - https_proxy
+      - no_proxy
 
   mraa-python:
     extends: mraa-base
@@ -69,6 +73,10 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
+    environment:
+      - http_proxy
+      - https_proxy
+      - no_proxy
 
   upm-python:
     extends: upm-base
