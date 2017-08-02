@@ -4,19 +4,28 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Update apt-get
 RUN apt-get -y update && \
-  # Install apt-utils
-  apt-get -y --no-install-recommends install apt-utils && \
-  # Main Build Dependencies
-  apt-get -y --no-install-recommends install git build-essential cmake clang-3.8 \
-  g++-4.8 wget ca-certificates libpcre3 libpcre3-dev python unzip \
-  # Docs Build Dependencies
-  python-sphinx doxygen graphviz \
-  # Json Platform Build Dependencies
-  pkg-config libjson0 libjson0-dev \
-  # Imraa Platform Build Dependencies
-  libudev-dev \
-  # Doc Build Dependencies
-  python-sphinx doxygen graphviz
+    # Install apt-utils
+    apt-get -y --no-install-recommends install apt-utils && \
+    # Install software-properties-common
+    apt-get -y --no-install-recommends install software-properties-common && \
+    # Main Build Dependencies
+    apt-get -y --no-install-recommends install \
+    build-essential cmake clang-3.8 gcc-4.8 g++-4.8 gcc-5 g++-5 python \
+    # Additional Tools
+    git wget ca-certificates libpcre3 libpcre3-dev unzip \
+    # Docs Build Dependencies
+    python-sphinx doxygen graphviz \
+    # Json Platform Build Dependencies
+    pkg-config libjson0 libjson0-dev \
+    # Imraa Platform Build Dependencies
+    libudev-dev \
+    # Doc Build Dependencies
+    python-sphinx doxygen graphviz
+
+# Install gcc-6 g++-6
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
+    apt-get update && \
+    apt-get -y --no-install-recommends install gcc-6 g++-6
 
 # Set library download folder to /opt
 WORKDIR /opt
