@@ -32,9 +32,10 @@ jobs:
       <<: *build-mraa-base-image
       stage: Build mraa images
       env: TARGET=mraa-python
+      before_script:
+        - docker pull ${DOCKER_USERNAME}/mraa-base:${TRAVIS_BRANCH}
+        - docker tag ${DOCKER_USERNAME}/mraa-base:${TRAVIS_BRANCH} ${DOCKER_USERNAME}/mraa-base
       script:
-        - docker pull ${DOCKER_USERNAME}/${TARGET}:${TRAVIS_BRANCH}
-        - docker tag ${DOCKER_USERNAME}/${TARGET}:${TRAVIS_BRANCH} ${DOCKER_USERNAME}/${TARGET}
         - docker-compose build ${TARGET}
         - docker tag ${DOCKER_USERNAME}/${TARGET} ${DOCKER_USERNAME}/${TARGET}:${TRAVIS_BRANCH}
     - <<: *build-mraa-image
@@ -54,9 +55,15 @@ jobs:
       stage: Build upm-base image
       env: TARGET=upm-base
     - &build-upm-image
-      <<: *build-mraa-image
+      <<: *build-upm-base-image
       stage: Build upm images
       env: TARGET=upm-python
+      before_script:
+        - docker pull ${DOCKER_USERNAME}/upm-base:${TRAVIS_BRANCH}
+        - docker tag ${DOCKER_USERNAME}/upm-base:${TRAVIS_BRANCH} ${DOCKER_USERNAME}/upm-base
+      script:
+        - docker-compose build ${TARGET}
+        - docker tag ${DOCKER_USERNAME}/${TARGET} ${DOCKER_USERNAME}/${TARGET}:${TRAVIS_BRANCH}
     - <<: *build-upm-image
       env: TARGET=upm-java
     - <<: *build-upm-image
