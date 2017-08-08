@@ -1,13 +1,16 @@
 FROM dnoliver/mraa-base
 
 # Update apt-get
-RUN apt-get -y update && \
+RUN apt-get -y update && apt-get -y --no-install-recommends install \
   # Python 2 Build Dependencies
-  apt-get -y --no-install-recommends install python python-dev \
+  python python-dev python-pip \
   # Python 3 Build Dependencies
   python3 python3-dev \
-  # RPM Build Dependencies
-  rpm
+  # Docs Build Dependencies
+  python-sphinx
+
+# Install virtualenv
+RUN pip install virtualenv
 
 # Update apt-get
 RUN apt-get -y update && \
@@ -16,6 +19,9 @@ RUN apt-get -y update && \
 
 # Set JAVA_HOME
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+
+# RPM Build Dependencies
+RUN apt-get -y update && apt-get -y --no-install-recommends install rpm
 
 WORKDIR /opt
 

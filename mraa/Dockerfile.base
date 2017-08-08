@@ -14,13 +14,11 @@ RUN apt-get -y update && \
     # Additional Tools
     git wget ca-certificates libpcre3 libpcre3-dev unzip \
     # Docs Build Dependencies
-    python-sphinx doxygen graphviz \
+    doxygen graphviz \
     # Json Platform Build Dependencies
     pkg-config libjson0 libjson0-dev \
     # Imraa Platform Build Dependencies
-    libudev-dev \
-    # Doc Build Dependencies
-    python-sphinx doxygen graphviz
+    libudev-dev
 
 # Install gcc-6 g++-6
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test && \
