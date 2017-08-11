@@ -14,7 +14,7 @@ RUN apt-get update && \
     # Additional Tools
     git libpthread-stubs0-dev pkg-config wget unzip \
     # Docs Build Dependencies
-    python-sphinx doxygen graphviz \
+    doxygen graphviz \
     # Sensor Specific Build Dependencies
     libjpeg-dev
 
