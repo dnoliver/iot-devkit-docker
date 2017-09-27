@@ -27,14 +27,14 @@ ENV NDK_HOME /opt/android-ndk-r14b
 ENV NDK_MODULE_PATH /opt/android-ndk-r14b
 
 # Android Things library
-RUN wget -q https://github.com/androidthings/native-libandroidthings/archive/0.4.1-devpreview.tar.gz && \
-    tar xf 0.4.1-devpreview.tar.gz && \
-    rm -fr /opt/0.4.1-devpreview.tar.gz
-ENV ANDROIDTHINGS_NATIVE_LIB /opt/native-libandroidthings-0.4.1-devpreview
+ARG ANDROIDTHINGS_VERSION=0.4.1
+RUN wget -q https://github.com/androidthings/native-libandroidthings/archive/$ANDROIDTHINGS_VERSION-devpreview.tar.gz && \
+    tar xf $ANDROIDTHINGS_VERSION-devpreview.tar.gz && \
+    rm -fr /opt/$ANDROIDTHINGS_VERSION-devpreview.tar.gz
+ENV ANDROIDTHINGS_NATIVE_LIB /opt/native-libandroidthings-$ANDROIDTHINGS_VERSION-devpreview
 
 # Build Mraa For Android Things
-RUN git clone --depth 1 https://github.com/intel-iot-devkit/mraa.git && \
-    cd mraa && \
+RUN cd /opt/mraa && \
     cmake \
       -DANDROID_COMPILER_FLAGS_CXX='-std=c++11' \
       -DANDROID_PIE=1 \
@@ -48,27 +48,20 @@ RUN git clone --depth 1 https://github.com/intel-iot-devkit/mraa.git && \
       -DCMAKE_FIND_ROOT_PATH=$NDK_HOME/platforms/android-24/arch-x86/ \
       -DCMAKE_MODULE_PATH=$ANDROIDTHINGS_NATIVE_LIB \
       -DCMAKE_TOOLCHAIN_FILE=$NDK_HOME/build/cmake/android.toolchain.cmake \
-      -DCMAKE_INSTALL_PREFIX=/opt/mraa/install \
+      -DCMAKE_INSTALL_PREFIX=install \
       -DJAVA_AWT_INCLUDE_PATH=$JAVA_HOME/include \
       -DJAVA_AWT_LIBRARY=$JAVA_HOME/jre/lib/amd64/libjawt.so \
       -DJAVA_INCLUDE_PATH=$JAVA_HOME/include \
       -DJAVA_INCLUDE_PATH2=$JAVA_HOME/include/linux \
       -DJAVA_JVM_LIBRARY=$JAVA_HOME/jre/lib/amd64/server/libjvm.so \
       -DBUILDARCH=PERIPHERALMAN \
-      -DJSONPLAT=OFF \
-      -DBUILDDOC=OFF \
       -DBUILDSWIG=ON \
       -DBUILDSWIGPYTHON=OFF \
       -DBUILDSWIGNODE=OFF \
       -DBUILDSWIGJAVA=ON \
-      -DENABLEEXAMPLES=OFF \
-      -DINSTALLGPIOTOOL=OFF \
-      -DINSTALLTOOLS=OFF \
-      -DBUILDTESTS=OFF \
       -H. \
       -Bbuild && \
     make -j8 -Cbuild install
-ENV MRAA_INSTALL_DIR /opt/mraa/install
 
 # Set Workdir
 WORKDIR $UPM_SRC_DIR

@@ -9,6 +9,19 @@ RUN apt-get -y update && \
 # Configure Java Home
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
+# Install Mraa with Python Support
+RUN cd /opt/mraa && \
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=install \
+    -DBUILDSWIG=ON \
+    -DBUILDSWIGPYTHON=OFF \
+    -DBUILDSWIGNODE=OFF \
+    -DBUILDSWIGJAVA=ON \
+    -Bbuild \
+    -H. && \
+  make -Cbuild install && \
+  rm -fr build
+
 # Set Workdir
 WORKDIR $UPM_SRC_DIR
 
