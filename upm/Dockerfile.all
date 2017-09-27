@@ -29,19 +29,6 @@ RUN apt-get -y update && apt-get -y --no-install-recommends install rpm
 
 WORKDIR /opt
 
-# Install Mraa with Python, Java, and Node.js Support
-RUN cd /opt/mraa && \
-  cmake \
-    -DCMAKE_INSTALL_PREFIX=install \
-    -DBUILDSWIG=ON \
-    -DBUILDSWIGPYTHON=ON \
-    -DBUILDSWIGNODE=ON \
-    -DBUILDSWIGJAVA=ON \
-    -Bbuild \
-    -H. && \
-  make -Cbuild install && \
-  rm -fr build
-
 # IPK Build Dependencies
 RUN git clone --depth=1 https://git.yoctoproject.org/git/opkg-utils
 ENV PATH /opt/opkg-utils:$PATH
@@ -55,6 +42,19 @@ RUN . $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION && \
     npm install -g node-gyp yuidocjs && \
     node-gyp install
 ENV PATH $NVM_DIR/versions/node/$NODE_VERSION/bin:$PATH
+
+# Install Mraa with Python, Java, and Node.js Support
+RUN cd /opt/mraa && \
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=install \
+    -DBUILDSWIG=ON \
+    -DBUILDSWIGPYTHON=ON \
+    -DBUILDSWIGNODE=ON \
+    -DBUILDSWIGJAVA=ON \
+    -Bbuild \
+    -H. && \
+  make -Cbuild install && \
+  rm -fr build
 
 # Static Code Analysis Scanner
 ENV SONAR_DIR /opt/sonar
