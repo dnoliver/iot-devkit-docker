@@ -27,7 +27,7 @@ ENV NDK_HOME /opt/android-ndk-r14b
 ENV NDK_MODULE_PATH /opt/android-ndk-r14b
 
 # Android Things library
-ARG ANDROIDTHINGS_VERSION=0.4.1
+ARG ANDROIDTHINGS_VERSION=0.5.1
 RUN wget -q https://github.com/androidthings/native-libandroidthings/archive/$ANDROIDTHINGS_VERSION-devpreview.tar.gz && \
     tar xf $ANDROIDTHINGS_VERSION-devpreview.tar.gz && \
     rm -fr /opt/$ANDROIDTHINGS_VERSION-devpreview.tar.gz
