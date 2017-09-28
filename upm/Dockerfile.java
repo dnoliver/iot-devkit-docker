@@ -9,7 +9,7 @@ RUN apt-get -y update && \
 # Configure Java Home
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
-# Install Mraa with Python Support
+# Install Mraa with Java Support
 RUN cd /opt/mraa && \
   cmake \
     -DCMAKE_INSTALL_PREFIX=install \

@@ -16,17 +16,17 @@ RUN pip install chardet && pip3 install chardet
 RUN pip install virtualenv
 
 # Install Mraa with Python Support
-RUN cd /opt/mraa && \
-  cmake \
-    -DCMAKE_INSTALL_PREFIX=install \
-    -DBUILDSWIG=ON \
-    -DBUILDSWIGPYTHON=ON \
-    -DBUILDSWIGNODE=OFF \
-    -DBUILDSWIGJAVA=OFF \
-    -Bbuild \
-    -H. && \
-  make -Cbuild install && \
-  rm -fr build
+#RUN cd /opt/mraa && \
+#  cmake \
+#    -DCMAKE_INSTALL_PREFIX=install \
+#    -DBUILDSWIG=ON \
+#    -DBUILDSWIGPYTHON=ON \
+#    -DBUILDSWIGNODE=OFF \
+#    -DBUILDSWIGJAVA=OFF \
+#    -Bbuild \
+#    -H. && \
+#  make -Cbuild install && \
+#  rm -fr build
 
 # Set Workdir
 WORKDIR $UPM_SRC_DIR
