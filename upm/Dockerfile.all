@@ -3,9 +3,9 @@ FROM dnoliver/upm-base
 # Update apt-get
 RUN apt-get -y update && apt-get -y --no-install-recommends install \
     # Python 2 Build Dependencies
-    python python-dev python-pip python-mraa \
+    python python-dev python-pip \
     # Python 3 Build Dependencies
-    python3 python3-dev python3-pip python3-mraa \
+    python3 python3-dev python3-pip \
     # Docs Build Dependencies
     python-sphinx
 
@@ -19,7 +19,7 @@ RUN pip install virtualenv
 RUN apt-get -y update && \
     # Java Build Dependencies
     apt-get -y --no-install-recommends install \
-    default-jre default-jdk libmraa-java
+    default-jre default-jdk
 
 # Configure Java Home
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
@@ -42,6 +42,19 @@ RUN . $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION && \
     npm install -g node-gyp yuidocjs && \
     node-gyp install
 ENV PATH $NVM_DIR/versions/node/$NODE_VERSION/bin:$PATH
+
+# Install Mraa with Python, Java, and Node.js Support
+RUN cd /opt/mraa && \
+  cmake \
+    -DCMAKE_INSTALL_PREFIX=install \
+    -DBUILDSWIG=ON \
+    -DBUILDSWIGPYTHON=ON \
+    -DBUILDSWIGNODE=ON \
+    -DBUILDSWIGJAVA=ON \
+    -Bbuild \
+    -H. && \
+  make -Cbuild install && \
+  rm -fr build
 
 # Static Code Analysis Scanner
 ENV SONAR_DIR /opt/sonar

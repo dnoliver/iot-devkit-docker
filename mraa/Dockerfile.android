@@ -26,10 +26,11 @@ ENV NDK_HOME /opt/android-ndk-r14b
 ENV NDK_MODULE_PATH /opt/android-ndk-r14b
 
 # Android Things library
-RUN wget -q https://github.com/androidthings/native-libandroidthings/archive/0.4.1-devpreview.tar.gz && \
-    tar xf 0.4.1-devpreview.tar.gz && \
-    rm -fr /opt/0.4.1-devpreview.tar.gz
-ENV ANDROIDTHINGS_NATIVE_LIB /opt/native-libandroidthings-0.4.1-devpreview
+ARG ANDROIDTHINGS_VERSION=0.5.1
+RUN wget -q https://github.com/androidthings/native-libandroidthings/archive/$ANDROIDTHINGS_VERSION-devpreview.tar.gz && \
+    tar xf $ANDROIDTHINGS_VERSION-devpreview.tar.gz && \
+    rm -fr /opt/$ANDROIDTHINGS_VERSION-devpreview.tar.gz
+ENV ANDROIDTHINGS_NATIVE_LIB /opt/native-libandroidthings-$ANDROIDTHINGS_VERSION-devpreview
 
 # Set Workdir
 WORKDIR $MRAA_SRC_DIR

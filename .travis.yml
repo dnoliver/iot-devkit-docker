@@ -33,8 +33,10 @@ jobs:
       stage: Build mraa images
       env: TARGET=mraa-python
       before_script:
-        - docker pull ${DOCKER_USERNAME}/mraa-base:${TRAVIS_BRANCH}
-        - docker tag ${DOCKER_USERNAME}/mraa-base:${TRAVIS_BRANCH} ${DOCKER_USERNAME}/mraa-base
+        - BASE_IMAGE_TAG="${TRAVIS_BRANCH}"
+        - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then BASE_IMAGE_TAG="${TRAVIS_PULL_REQUEST_BRANCH}"; fi
+        - docker pull ${DOCKER_USERNAME}/mraa-base:${BASE_IMAGE_TAG}
+        - docker tag ${DOCKER_USERNAME}/mraa-base:${BASE_IMAGE_TAG} ${DOCKER_USERNAME}/mraa-base
       script:
         - docker-compose build ${TARGET}
         - docker tag ${DOCKER_USERNAME}/${TARGET} ${DOCKER_USERNAME}/${TARGET}:${TRAVIS_BRANCH}
@@ -59,8 +61,10 @@ jobs:
       stage: Build upm images
       env: TARGET=upm-python
       before_script:
-        - docker pull ${DOCKER_USERNAME}/upm-base:${TRAVIS_BRANCH}
-        - docker tag ${DOCKER_USERNAME}/upm-base:${TRAVIS_BRANCH} ${DOCKER_USERNAME}/upm-base
+        - BASE_IMAGE_TAG="${TRAVIS_BRANCH}"
+        - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then BASE_IMAGE_TAG="${TRAVIS_PULL_REQUEST_BRANCH}"; fi
+        - docker pull ${DOCKER_USERNAME}/upm-base:${BASE_IMAGE_TAG}
+        - docker tag ${DOCKER_USERNAME}/upm-base:${BASE_IMAGE_TAG} ${DOCKER_USERNAME}/upm-base
       script:
         - docker-compose build ${TARGET}
         - docker tag ${DOCKER_USERNAME}/${TARGET} ${DOCKER_USERNAME}/${TARGET}:${TRAVIS_BRANCH}
