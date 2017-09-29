@@ -34,9 +34,7 @@ jobs:
       env: TARGET=mraa-python
       before_script:
         - BASE_IMAGE_TAG="${TRAVIS_BRANCH}"
-        - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
-        -   BASE_IMAGE_TAG="${TRAVIS_PULL_REQUEST_BRANCH}";
-        - fi
+        - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then BASE_IMAGE_TAG="${TRAVIS_PULL_REQUEST_BRANCH}"; fi
         - docker pull ${DOCKER_USERNAME}/mraa-base:${BASE_IMAGE_TAG}
         - docker tag ${DOCKER_USERNAME}/mraa-base:${BASE_IMAGE_TAG} ${DOCKER_USERNAME}/mraa-base
       script:
@@ -64,9 +62,7 @@ jobs:
       env: TARGET=upm-python
       before_script:
         - BASE_IMAGE_TAG="${TRAVIS_BRANCH}"
-        - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
-        -   BASE_IMAGE_TAG="${TRAVIS_PULL_REQUEST_BRANCH}";
-        - fi
+        - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then BASE_IMAGE_TAG="${TRAVIS_PULL_REQUEST_BRANCH}"; fi
         - docker pull ${DOCKER_USERNAME}/upm-base:${BASE_IMAGE_TAG}
         - docker tag ${DOCKER_USERNAME}/upm-base:${BASE_IMAGE_TAG} ${DOCKER_USERNAME}/upm-base
       script:
