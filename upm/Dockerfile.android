@@ -63,6 +63,14 @@ RUN cd /opt/mraa && \
       -Bbuild && \
     make -j8 -Cbuild install
 
+# Cordova Build Dependencies
+ARG NVM_VERSION=v0.33.2
+RUN wget -q -O - https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh | bash
+ENV NVM_DIR /root/.nvm
+ARG NODE_VERSION
+RUN . $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION
+ENV PATH $NVM_DIR/versions/node/$NODE_VERSION/bin:$PATH
+
 # Set Workdir
 WORKDIR $UPM_SRC_DIR
 

@@ -95,6 +95,8 @@ services:
     image: dnoliver/upm-android
     build:
       dockerfile: upm/Dockerfile.android
+      args:
+        - NODE_VERSION=v6.11.0
 
   upm-node4:
     extends: upm-base
